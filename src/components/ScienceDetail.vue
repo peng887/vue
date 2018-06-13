@@ -87,6 +87,7 @@ export default {
 <style scoped>
   .ScienceDetail{
     padding-top: 60px;
+    overflow: hidden;
   }
   .detail{
     padding:0 10px;

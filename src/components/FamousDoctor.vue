@@ -26,7 +26,23 @@
 
     <transition name='fade'>
       <ul class="list" v-show="isShowList">
-        <li v-for="item in list">{{item.user.nickName}}</li>
+        <li v-for="item in list">
+          <img class="photo" :src="item.user.photo" alt="">
+          <div class="right">
+            <div class="top">
+              <div class="topL">
+                <span>{{item.user.nickName}}</span>
+                <span>主任医师</span>
+              </div>
+              <div class="topR"></div>
+            </div>
+            <div class="mid">
+              <span>问诊量328</span>
+              <span>泌尿外科</span>
+            </div>
+            <div class="bot">擅长：书法家武器发射地点附近我去额欸u是你的埃克设计的佛i请问九分可就是覅哦亲哦万福金安伺服电机</div>
+          </div>
+        </li>
       </ul>
     </transition>
   </div>
@@ -137,5 +153,19 @@ export default {
 }
 .list{
   margin-top: 87px;
+  padding:0 10px;
+}
+.list li{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.list li .photo{
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+}
+.list li .right{
+  flex: 1;
 }
 </style>

@@ -7,7 +7,7 @@
       <li @click="changeCity(index,item)" v-for="(item,index) in city" :id="item.id" :class='{"active":cityId==item.id}'>{{item.name}}</li>
     </ul>
     <ul>
-      <li v-for="(item,index) in town" :id="item.id">{{item.name}}</li>
+      <li @click="changeTown(index,item)" v-for="(item,index) in town" :id="item.id">{{item.name}}</li>
     </ul>
   </div>
 </template>
@@ -36,7 +36,6 @@ export default {
       this.province=res.data.data
       let winHeight = document.documentElement.clientHeight;//可视区height
       this.style.height=winHeight-87+'px';
-      console.info(this)
     })
   },
   methods:{
@@ -66,6 +65,9 @@ export default {
         this.town=res.data.data
         this.cityId=item.id;
       })
+    },
+    changeTown(index,item){
+      alert(1)
     }
   }
 }

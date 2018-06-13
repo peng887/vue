@@ -32,7 +32,6 @@ export default {
       this.levelOne=res.data.data
       let winHeight = document.documentElement.clientHeight;//可视区height
       this.style.height=winHeight-87+'px';
-      console.info(this)
     })
   },
   methods:{
