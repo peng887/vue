@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import SearchBar from '@/components/SearchBar'
-import Region from '@/components/Region'
+import SearchBar from '@/components/commons/SearchBar'
+import Region from '@/components/commons/Region'
 export default {
   data(){
     return {

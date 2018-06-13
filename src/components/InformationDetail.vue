@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
+import Header from '@/components/commons/Header'
 export default {
   data () {
     return {

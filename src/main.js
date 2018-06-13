@@ -9,7 +9,7 @@ import { Toast } from 'mint-ui'
 Vue.prototype.$toast = Toast;
 import { Indicator } from 'mint-ui'
 Vue.prototype.$indicator = Indicator;
-import Global from './components/Global'//引用公共方法文件
+import Global from './components/commons/Global'//引用公共方法文件
 Vue.prototype.$Global = Global//挂载到Vue实例上面
 
 import store from  './store'

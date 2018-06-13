@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import SearchBar from '@/components/SearchBar'
+import SearchBar from '@/components/commons/SearchBar'
 import Swiper from 'swiper';
 import 'swiper/dist/css/swiper.css';
 export default {
