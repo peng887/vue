@@ -31,16 +31,16 @@
           <div class="right">
             <div class="top">
               <div class="topL">
-                <span>{{item.user.nickName}}</span>
+                <span class="name">{{item.user.nickName}}</span>
                 <span>主任医师</span>
               </div>
               <div class="topR"></div>
             </div>
             <div class="mid">
-              <span>问诊量328</span>
+              <span>问诊量：328</span>
               <span>泌尿外科</span>
             </div>
-            <div class="bot">擅长：书法家武器发射地点附近我去额欸u是你的埃克设计的佛i请问九分可就是覅哦亲哦万福金安伺服电机</div>
+            <div class="bot line-two">擅长：书法家武器发射地点附近我去额欸u是你的埃克设计的佛i请问九分可就是覅哦亲哦万福金安伺服电机</div>
           </div>
         </li>
       </ul>
@@ -123,6 +123,19 @@ export default {
 </script>
 
 <style scoped="true">
+.mid,.topL{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.mid span{
+  margin-right: 20px;
+}
+.name{
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 20px;
+}
 .topBar{
   width: 100%;
   position: fixed;
@@ -157,15 +170,29 @@ export default {
 }
 .list li{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  padding:15px 0;
+  border-bottom: 1px solid #eee;
 }
 .list li .photo{
-  width: 70px;
-  height: 70px;
-  border-radius: 35px;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  margin-right: 20px;
 }
 .list li .right{
   flex: 1;
+}
+.right{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.right>div{
+  margin-bottom:10px;
+}
+.bot{
+  line-height: 20px;
 }
 </style>
