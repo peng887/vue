@@ -67,7 +67,7 @@ export default {
       })
     },
     changeTown(index,item){
-      alert(1)
+      this.$emit("regionUpdate")
     }
   }
 }
@@ -99,5 +99,6 @@ export default {
 .active{
   color: #fff;
   background: #26a2ff;
+  border-radius: 3px;
 }
 </style>

@@ -17,7 +17,7 @@
       </div>
     </div>
     <transition name='fade'>
-      <Region v-show="isShow" class="region"></Region>
+      <Region v-show="isShow" class="region" @regionUpdate="regionUpdate"></Region>
     </transition>
 
     <transition name='fade'>
@@ -103,6 +103,10 @@ export default {
     })
   },
   methods:{
+    regionUpdate(){
+      alert("ok")
+      this.isShow=false
+    },
     search(){
       alert("搜索")
     },
@@ -123,13 +127,25 @@ export default {
 </script>
 
 <style scoped="true">
+.top{
+  line-height: 14px;
+}
 .mid,.topL{
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
+.mid{
+  line-height: 12px;
+}
 .mid span{
   margin-right: 20px;
+}
+.bot{
+  line-height: 18px;
+  height: 36px;
+  margin-bottom: 0!important;
+  color: #999;
 }
 .name{
   font-weight: bold;
@@ -190,9 +206,7 @@ export default {
   justify-content: center;
 }
 .right>div{
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
-.bot{
-  line-height: 20px;
-}
+
 </style>

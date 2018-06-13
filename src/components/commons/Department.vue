@@ -82,5 +82,6 @@ export default {
 .active{
   color: #fff;
   background: #26a2ff;
+  border-radius: 3px;
 }
 </style>
