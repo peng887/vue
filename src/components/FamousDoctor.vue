@@ -11,13 +11,17 @@
         <span>排序</span>
         <i class="fa fa-sort" aria-hidden="true"></i>
       </div>
-      <div class="">
+      <div class="" @click="showDepartment">
         <span>科室</span>
         <i class="fa fa-angle-down" aria-hidden="true"></i>
       </div>
     </div>
     <transition name='fade'>
       <Region v-show="isShow" class="region"></Region>
+    </transition>
+
+    <transition name='fade'>
+      <Department v-show="isShowDepartment" class="region"></Department>
     </transition>
 
     <transition name='fade'>
@@ -31,6 +35,7 @@
 <script>
 import SearchBar from '@/components/commons/SearchBar'
 import Region from '@/components/commons/Region'
+import Department from '@/components/commons/Department'
 export default {
   data(){
     return {
@@ -42,12 +47,14 @@ export default {
       },
       isShow:false,
       isShowList:false,
+      isShowDepartment:false,
       list:""
     }
   },
   components:{
     SearchBar,
-    Region
+    Region,
+    Department
   },
   activated(){
     this.$store.commit("changeaAppMarginBooleans");
@@ -85,6 +92,15 @@ export default {
     },
     show(){
       this.isShow=!this.isShow;
+      if(this.isShow){
+        this.isShowDepartment=false
+      }
+    },
+    showDepartment(){
+      this.isShowDepartment=!this.isShowDepartment;
+      if(this.isShowDepartment){
+        this.isShow=false
+      }
     }
   }
 }

@@ -44,7 +44,7 @@ export default {
   },
   methods:{
     send(){
-      alert(1)
+      window.location.href="http://www.deshanghealth.com/FHADMINM/wx/raise/raiseSteps.html"
     }
   }
 }

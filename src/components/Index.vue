@@ -24,7 +24,9 @@
             <span class="title">得上资讯</span>
             <div class="swiper-container informationSlider">
               <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="item in information">{{item.title}}</div>
+                  <div class="swiper-slide" v-for="item in information">
+                    <router-link :to="{ path: '/InformationDetail', query:{id:item.id} }">{{item.title}}</router-link>
+                  </div>
               </div>
             </div>
             <router-link to="/InformationList" class="more"><i class="fa fa-angle-double-right" aria-hidden="true"></i></router-link>
@@ -270,6 +272,9 @@ export default {
 </script>
 
 <style scoped>
+.swiper-slide a{
+  color: #26a2ff;
+}
 .adSlider{
   margin-top: 46px;
   height: 33vh;

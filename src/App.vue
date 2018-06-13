@@ -26,7 +26,7 @@ export default {
 
 <style>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity .3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
@@ -35,9 +35,9 @@ export default {
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  -webkit-user-select: none;
+  /* -webkit-user-select: none;
   -moz-user-focus: none;
-  -moz-user-select: none;
+  -moz-user-select: none; */
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
