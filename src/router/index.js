@@ -39,6 +39,9 @@ export default new Router({
       components:{
         default:Community,
         bar:TabBar
+      },
+      meta:{
+        keepAlive: true
       }
     },
     {

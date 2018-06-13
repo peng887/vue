@@ -1,7 +1,14 @@
 <template>
   <div class="community">
     <Header :title="title" :path="path" :isShow="isShow" :pathRight="pathRight"></Header>
-    <p>community</p>
+
+    <div class="top-bar">
+      <ul>
+        <li>推荐</li>
+        <li>关注</li>
+        <li v-for="(item,index) in topBarList">{{item.TRIBUNE_TITLE}}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -13,17 +20,39 @@ export default {
       title:"得上社区",
       path:"",
       isShow:false,
-      pathRight:""
+      pathRight:"",
+      topBarList:""
     }
   },
   components:{
     Header
+  },
+  beforeCreate(){
+    this.$axios({
+      method:'post',
+      url:'/FHADMINM/api/community/tribune/getSyTribune',
+      data:{}
+    }).then(res=>{
+      this.topBarList=res.data.data
+    })
   }
 }
 </script>
 
 <style scoped>
-p{
+.top-bar{
   margin-top: 46px;
+}
+.top-bar ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #eee;
+  font-weight: bold;
+}
+.top-bar ul li{
+  flex: 1;
+  height: 40px;
+  line-height: 40px;
 }
 </style>
