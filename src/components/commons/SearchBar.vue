@@ -7,13 +7,16 @@
     </div>
     <div class="inputWrap">
       <i class="fa fa-search" aria-hidden="true"></i>
-      <input id="search" type="text" name="" value="" :placeholder="placeholder" @keyup="keyUp" @focus="focus">
+      <input id="search" type="text" name="" value="" :placeholder="placeholder" @keyup="keyUp" v-model="context">
     </div>
     <span class="comment">
       <router-link to="" v-html="rightIcon">
 
       </router-link>
     </span>
+    <div class="searchPage" v-show="searchPageShow">
+
+    </div>
   </div>
 </template>
 
@@ -21,21 +24,19 @@
 export default {
   data () {
     return {
-
+      context:""
     }
   },
   props:{
     placeholder:"",
     leftIcon:"",
     rightIcon:"",
-    leftPath:""
+    leftPath:"",
+    searchPageShow:false
   },
   methods:{
     keyUp(){
-      this.$emit('search');
-    },
-    focus(){
-      this.$emit("focus")
+      this.$emit('search',this.context)
     }
   }
 
@@ -83,5 +84,14 @@ export default {
 }
 .search .comment a{
   color: #fff;
+}
+.searchPage{
+  width: 100%;
+  height: 30vh;
+  background: #fff;
+  position:fixed;
+  left: 0;
+  top: 47px;
+  border-bottom: 1px solid #eee;
 }
 </style>

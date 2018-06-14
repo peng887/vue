@@ -71,18 +71,12 @@ export default {
     Department
   },
   activated(){
-    this.$store.commit("changeaAppMarginBooleans");
+    this.$store.commit("changeaAppMarginBooleans")
   },
   deactivated(){
-    this.$store.commit("changeaAppMarginBooleans");
-  },
-  watch:{
-    $route (to, from) {
-      const toPath = to.path.split('/')[1];
-      if(toPath!='FamousDoctor'){
-        this.isShow=false;
-      }
-    }
+    this.$store.commit("changeaAppMarginBooleans")
+    this.isShow=false
+    this.isShowDepartment=false
   },
   updated(){
     this.$indicator.close();
@@ -180,6 +174,32 @@ export default {
         }
       })
     },
+    search(context){
+      this.isShow=false
+      this.isShowDepartment=false
+      if(this.page!=1){
+        this.page=1;
+        this.list=[]
+      }
+      this.flag=false
+      this.$axios({
+        method:'post',
+        url:'/dsjk/api/expert/expertList',
+        data:{
+          index:this.page,
+          searchContent:context
+        },
+      }).then((res)=>{
+        if(!res.data.data){
+          this.$toast("没有更多了")
+        }else{
+          this.page++
+          this.flag=true
+          this.isShowList=true
+          this.list=res.data.data
+        }
+      })
+    },
     handleScroll(){//滚动监听
       let pageHeight = document.body.clientHeight+110;//文档height
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;//滚动距离
@@ -188,9 +208,6 @@ export default {
       if(pageHeight-addHeight<=500&&this.flag==true){
         this.update()
       }
-    },
-    search(){
-      alert("搜索")
     },
     show(){
       this.isShow=!this.isShow;
@@ -242,7 +259,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 99;
   background: #fff;
 }
 .topBar>div{
