@@ -37,20 +37,19 @@ export default {
   methods:{
     selectLevelOne(index,item){
       this.town="";
-      let id=item.id;
       this.$axios({
         method:'post',
         url:"/dsjk/api/keshi/list.do",
         data:{
-          parentId:id
+          parentId:item.id
         }
       }).then((res)=>{
         this.levelTwo=res.data.data
         this.levelOneId=item.id;
       })
     },
-    selectLevelTwo(){
-      alert(1)
+    selectLevelTwo(index,item){
+      this.$emit("departmentUpdate",item.id)
     }
   }
 }

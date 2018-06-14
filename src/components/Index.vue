@@ -210,7 +210,7 @@ export default {
       })
     })
 
-    this.pushData(this.page);
+    this.pushData();
 
     window.addEventListener('scroll', this.handleScroll);
 

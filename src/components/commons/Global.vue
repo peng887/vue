@@ -1,6 +1,6 @@
 <template></template>
 <script>
-  const upFile=(btn,_this)=>{
+  const upFile = (btn,_this) => {
     let file=btn.files[0];
     console.info(file)
     let formData = new FormData();
@@ -16,11 +16,12 @@
       }else{
         _this.$toast(res.data.message);
       }
-    }).catch((err)=>{
+    }).catch((err) => {
       _this.$indicator.close();
       _this.$toast("网络错误");
     })
   }
+
   export default
   {
     upFile

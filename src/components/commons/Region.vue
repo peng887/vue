@@ -41,12 +41,11 @@ export default {
   methods:{
     changeProvince(index,item){
       this.town="";
-      let id=item.id;
       this.$axios({
         method:'post',
         url:"/dsjk/api/area/list.do",
         data:{
-          parentId:id
+          parentId:item.id
         }
       }).then((res)=>{
         this.city=res.data.data
@@ -54,12 +53,11 @@ export default {
       })
     },
     changeCity(index,item){
-      let id=item.id;
       this.$axios({
         method:'post',
         url:"/dsjk/api/area/list.do",
         data:{
-          parentId:id
+          parentId:item.id
         }
       }).then((res)=>{
         this.town=res.data.data
@@ -67,7 +65,7 @@ export default {
       })
     },
     changeTown(index,item){
-      this.$emit("regionUpdate")
+      this.$emit("regionUpdate",item.id)
     }
   }
 }

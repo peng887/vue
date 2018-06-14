@@ -7,10 +7,6 @@
         <span>全部地区</span>
         <i class="fa fa-angle-down" aria-hidden="true"></i>
       </div>
-      <div class="">
-        <span>排序</span>
-        <i class="fa fa-sort" aria-hidden="true"></i>
-      </div>
       <div class="" @click="showDepartment">
         <span>科室</span>
         <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -21,7 +17,7 @@
     </transition>
 
     <transition name='fade'>
-      <Department v-show="isShowDepartment" class="region"></Department>
+      <Department v-show="isShowDepartment" class="region" @departmentUpdate="departmentUpdate"></Department>
     </transition>
 
     <transition name='fade'>
@@ -64,7 +60,9 @@ export default {
       isShow:false,
       isShowList:false,
       isShowDepartment:false,
-      list:""
+      list:[],
+      page:1,
+      flag:""
     }
   },
   components:{
@@ -91,21 +89,105 @@ export default {
   },
   beforeCreate(){
     this.$indicator.open();
-    this.$axios({
-      method:'post',
-      url:'/dsjk/api/expert/expertList',
-      data:{
-        index:1
+  },
+  mounted(){
+    this.update()
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  watch:{
+    $route (to, from) {
+      const toPath = to.path.split('/')[1];
+      if(toPath!='FamousDoctor'){
+        window.removeEventListener('scroll', this.handleScroll);
+      }else{
+        window.addEventListener('scroll', this.handleScroll);
       }
-    }).then((res)=>{
-      this.list=res.data.data
-      this.isShowList=true;
-    })
+    }
   },
   methods:{
-    regionUpdate(){
-      alert("ok")
+    update(){
+      this.flag=false
+      this.$axios({
+        method:'post',
+        url:'/dsjk/api/expert/expertList',
+        data:{
+          index:this.page
+        },
+      }).then((res)=>{
+        if(!res.data.data){
+          this.$toast("没有更多了")
+        }else{
+          this.page++
+          this.flag=true
+          this.isShowList=true;
+          for(var i=0;i<res.data.data.length;i++){
+            this.list.push(res.data.data[i])
+          }
+        }
+      })
+    },
+    regionUpdate(id){//地区筛选
       this.isShow=false
+      if(this.page!=1){
+        this.page=1;
+        this.list=[]
+      }
+      this.flag=false
+      this.$axios({
+        method:'post',
+        url:'/dsjk/api/expert/expertList',
+        data:{
+          index:this.page,
+          district:id
+        },
+      }).then((res)=>{
+        if(!res.data.data){
+          this.$toast("没有更多了")
+        }else{
+          this.page++
+          this.flag=true
+          this.isShowList=true;
+          for(var i=0;i<res.data.data.length;i++){
+            this.list.push(res.data.data[i])
+          }
+        }
+      })
+    },
+    departmentUpdate(id){//科室筛选
+      this.isShowDepartment=false
+      if(this.page!=1){
+        this.page=1;
+        this.list=[]
+      }
+      this.flag=false
+      this.$axios({
+        method:'post',
+        url:'/dsjk/api/expert/expertList',
+        data:{
+          index:this.page,
+          departmentId:id
+        },
+      }).then((res)=>{
+        if(!res.data.data){
+          this.$toast("没有更多了")
+        }else{
+          this.page++
+          this.flag=true
+          this.isShowList=true;
+          for(var i=0;i<res.data.data.length;i++){
+            this.list.push(res.data.data[i])
+          }
+        }
+      })
+    },
+    handleScroll(){//滚动监听
+      let pageHeight = document.body.clientHeight+110;//文档height
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;//滚动距离
+      let winHeight = document.documentElement.clientHeight;//可视区height
+      let addHeight=scrollTop+winHeight;
+      if(pageHeight-addHeight<=500&&this.flag==true){
+        this.update()
+      }
     },
     search(){
       alert("搜索")

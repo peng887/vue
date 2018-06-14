@@ -26,7 +26,8 @@ export default {
       pathRight:"",
       list:[],
       page:"1",
-      isLoad:false
+      isLoad:false,
+      flag:""
     }
   },
   components:{
@@ -39,7 +40,7 @@ export default {
     this.$indicator.close();
   },
   mounted(){
-    this.updata(this.page)
+    this.update()
     window.addEventListener('scroll', this.handleScroll);
   },
   watch:{
@@ -53,7 +54,7 @@ export default {
     }
   },
   methods:{
-    updata(){
+    update(){
       this.flag=false;
       this.$axios({
         method:"post",
@@ -80,7 +81,7 @@ export default {
       let winHeight = document.documentElement.clientHeight;//可视区height
       let addHeight=scrollTop+winHeight;
       if(pageHeight-addHeight<=500&&this.flag==true){
-          this.updata();
+          this.update()
       }
     }
   }
