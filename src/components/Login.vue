@@ -77,17 +77,16 @@ export default {
         },10000)
         this.$axios({
           method:'post',
-          url:"/dsjk/api/userLogin/passwordLogin.do",
+          url:"/FHADMINM/api/Users/LoginPassword.do",
           data:{
-            cellphone:this.phone,
-            password:this.pass,
-            loginType:0
+            USER_CELLPHONE:this.phone,
+            USER_PASSWORD:this.pass
           }
         }).then((res)=>{
           this.$indicator.close();
           if(res.data.code==200){
             this.$toast(res.data.message);
-            sessionStorage.token=res.data.data.token;
+            sessionStorage.token=res.data.data.TOKEN;
             setTimeout(()=>{
               this.$router.push({path:"/My"});
             },1000)

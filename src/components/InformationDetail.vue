@@ -1,8 +1,8 @@
 <template>
   <div class="InformationDetail">
     <Header :title="title" :path="path" :isShow="isShow" :pathRight="pathRight"></Header>
-      <h3 ref='title'>{{data.title}}</h3>
-      <p ref='content'>{{data.content}}</p>
+      <h3 ref='title'>{{data.TITLE}}</h3>
+      <p ref='content'>{{data.CONTENT}}</p>
   </div>
 </template>
 
@@ -30,7 +30,7 @@ export default {
   mounted(){
     this.$axios({
       method:"post",
-      url:"/dsjk/api/dsInformation/detail.do",
+      url:"/FHADMINM/api/dsInformation/getInformationDetail",
       data:{
         id:this.$route.query.id
       }

@@ -7,16 +7,16 @@
         <div class="" v-show="isLoad">
           <div class="swiper-container adSlider">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="item in slider">
-                <img :src="item.fileName" alt="">
+              <div class="swiper-slide" v-for="item in group.GROUP1">
+                <img :src="item.M_PHOTO" alt="">
               </div>
             </div>
           </div>
 
           <ul class="menu">
-            <li v-for="(item,index) in menu" ref="menuLi" @click="menuJump(index)" :url="item.pinyin">
-                <img :src="item.fileName" alt="">
-                <span>{{item.name}}</span>
+            <li v-for="(item,index) in group.GROUP2" ref="menuLi" @click="menuJump(index)" :url="item.M_NAME_PINYIN">
+                <img :src="item.M_PHOTO" alt="">
+                <span>{{item.M_NAME}}</span>
             </li>
           </ul>
 
@@ -25,7 +25,7 @@
             <div class="swiper-container informationSlider">
               <div class="swiper-wrapper">
                   <div class="swiper-slide" v-for="item in information">
-                    <router-link :to="{ path: '/InformationDetail', query:{id:item.id} }">{{item.title}}</router-link>
+                    <router-link :to="{ path: '/InformationDetail', query:{id:item.INFORMATION_ID} }">{{item.TITLE}}</router-link>
                   </div>
               </div>
             </div>
@@ -37,9 +37,9 @@
           </div>
 
           <ul class="menuTools">
-            <li v-for="item in menuTools">
-              <img :src="item.fileName" alt="">
-              <span>{{item.name}}</span>
+            <li v-for="item in group.GROUP4">
+              <img :src="item.M_PHOTO" alt="">
+              <span>{{item.M_NAME}}</span>
             </li>
           </ul>
 
@@ -49,8 +49,8 @@
           </div>
           <div class="swiper-container freeClinicSlider">
             <div class="swiper-wrapper">
-              <div class="swiper-slide freeClinicItem" v-for="item in freeClinic">
-                <img :src="item.photo" alt="">
+              <div class="swiper-slide freeClinicItem" v-for="item in group.GROUP5">
+                <img :src="item.YIZHEN_PHOTO" alt="">
               </div>
             </div>
           </div>
@@ -101,12 +101,9 @@ export default {
         leftPath:""
       },
       isLoad:false,
-      slider:"",
-      menu:"",
-      raiseImg:"",
-      menuTools:"",
+      group:"",
       information:"",
-      freeClinic:"",
+      raiseImg:"",
       list:[],
       page:1,
       flag:"",
@@ -122,67 +119,24 @@ export default {
     this.$indicator.close();
   },
   mounted(){
-    let _this=this;
-    this.$axios({//轮播图
+    this.$axios({
       method:'post',
-      url:"/dsjk/api/module/list.do",
+      url:"/FHADMINM/api/homeModule/getmodule",
       data:{
-        type:0,
-        userType:1,
-        groupType:1
+        M_USER_TYPE:1
       }
-    }).then(function(res){
-      _this.slider=res.data.data;
-      let mySwiper = new Swiper('.adSlider', {
+    }).then(res => {
+      this.group=res.data.data;
+      this.raiseImg = res.data.data.GROUP3[0].M_PHOTO
+      this.isLoad = true
+      let adSlider = new Swiper('.adSlider', {
       	autoplay: true,
         speed:800,
         loop:true,
         observer:true,//修改swiper自己或子元素时，自动初始化swiper
         observeParents:true//修改swiper的父元素时，自动初始化swiper
       })
-    })
-    this.$axios({//MENU
-      method:'post',
-      url:"/dsjk/api/module/list.do",
-      data:{
-        type:0,
-        userType:1,
-        groupType:2
-      }
-    }).then(function(res){
-      _this.menu=res.data.data;
-    })
-    this.$axios({//raise
-      method:'post',
-      url:"/dsjk/api/module/list.do",
-      data:{
-        type:0,
-        userType:1,
-        groupType:3
-      }
-    }).then(function(res){
-      _this.raiseImg=res.data.data[0].fileName;
-    })
-    this.$axios({//menuTools
-      method:'post',
-      url:"/dsjk/api/module/list.do",
-      data:{
-        type:0,
-        userType:1,
-        groupType:4
-      }
-    }).then(function(res){
-      _this.menuTools=res.data.data;
-    })
-    this.$axios({//得上资讯
-      method:'post',
-      url:"/dsjk/api/dsInformation/list.do",
-      data:{
-        index:1
-      }
-    }).then(function(res){
-      _this.information=res.data.data;
-      let mySwiper = new Swiper('.informationSlider', {
+      let informationSlider = new Swiper('.informationSlider', {
         direction: 'vertical',
       	autoplay: true,
         speed:800,
@@ -190,17 +144,7 @@ export default {
         observer:true,//修改swiper自己或子元素时，自动初始化swiper
         observeParents:true//修改swiper的父元素时，自动初始化swiper
       })
-    })
-    this.$axios({//义诊活动
-      method:'post',
-      url:"/dsjk/api/yizhen/list.do",
-      data:{
-        index:1
-      }
-    }).then(function(res){
-      _this.isLoad=true;
-      _this.freeClinic=res.data.data;
-      let mySwiper = new Swiper('.freeClinicSlider', {
+      let freeClinicSlider = new Swiper('.freeClinicSlider', {
       	effect: 'coverflow',
         speed:800,
         autoplay: true,
@@ -208,6 +152,17 @@ export default {
         observer:true,//修改swiper自己或子元素时，自动初始化swiper
         observeParents:true//修改swiper的父元素时，自动初始化swiper
       })
+    })
+    this.$axios({
+      method:'post',
+      url:"/FHADMINM/api/dsInformation/getInformationList",
+      data:{
+        pageIndex:1
+      }
+    }).then(res => {
+      if(res.data.code==200){
+        this.information = res.data.data
+      }
     })
 
     this.pushData();
@@ -309,7 +264,7 @@ export default {
 }
 .menuTools li{
   width: 20%;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 .menuTools li img{
   width: 25px;

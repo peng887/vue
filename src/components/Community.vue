@@ -45,14 +45,20 @@ export default {
 }
 .top-bar ul{
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   border-bottom: 2px solid #eee;
   font-weight: bold;
+  width: 100%;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
+.top-bar ul::-webkit-scrollbar {display:none}
 .top-bar ul li{
   flex: 1;
   height: 40px;
   line-height: 40px;
+  padding:0 10px;
+  font-size: 14px;
 }
 </style>

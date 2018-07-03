@@ -5,44 +5,44 @@
       <div v-show="isLoad">
       <div class="mySelf">
         <div class="myWrap">
-          <img :src="userInfo.photo" alt="">
+          <img :src="userInfo.USER_PHOTO" alt="">
           <div class="text">
-            <span class="name">{{userInfo.nickName}}</span>
-            <span>{{userInfo.cellphone}}</span>
+            <span class="name">{{userInfo.USER_NICKNAME}}</span>
+            <span>{{userInfo.USER_CELLPHONE}}</span>
           </div>
         </div>
         <i class="fa fa-angle-right" aria-hidden="true"></i>
       </div>
 
       <ul class="my-one">
-        <li v-for="item in myOne">
-          <img :src="item.fileName" alt="">
-          <span>{{item.name}}</span>
+        <li v-for="item in group.GROUP1">
+          <img :src="item.M_PHOTO" alt="">
+          <span>{{item.M_NAME}}</span>
         </li>
       </ul>
 
       <div class="">
         <p class="title">常用功能</p>
         <ul class="my-two">
-          <li :style="style" ref="twoLi" v-for="item in myTwo">
-            <img :src="item.fileName" alt="">
-            <span>{{item.name}}</span>
+          <li :style="style" ref="twoLi" v-for="item in group.GROUP2">
+            <img :src="item.M_PHOTO" alt="">
+            <span>{{item.M_NAME}}</span>
           </li>
         </ul>
       </div>
 
       <ul class="my-three">
-        <li v-for="item in myThree">
-          <img :src="item.fileName" alt="">
-          <span>{{item.name}}</span>
+        <li v-for="item in group.GROUP3">
+          <img :src="item.M_PHOTO" alt="">
+          <span>{{item.M_NAME}}</span>
           <i class="fa fa-angle-right" aria-hidden="true"></i>
         </li>
       </ul>
 
       <ul class="my-three">
-        <li v-for="item in myFour">
-          <img :src="item.fileName" alt="">
-          <span>{{item.name}}</span>
+        <li v-for="item in group.GROUP4">
+          <img :src="item.M_PHOTO" alt="">
+          <span>{{item.M_NAME}}</span>
           <i class="fa fa-angle-right" aria-hidden="true"></i>
         </li>
       </ul>
@@ -61,14 +61,12 @@ export default {
       path:"",
       isShow:false,
       pathRight:"",
-      myOne:"",
-      myTwo:"",
+      group:"",
       style:{
         height:""
       },
-      myThree:"",
-      myFour:"",
-      userInfo:""
+      userInfo:"",
+      userType:""
     }
   },
   components:{
@@ -82,14 +80,15 @@ export default {
   activated(){
     this.$axios({
       method:"post",
-      url:"/dsjk/api/userLogin/getTUser.do",
+      url:"/FHADMINM/api/Users/selectUser.do",
       data:{
-        token:sessionStorage.token
+        TOKEN:encodeURIComponent(sessionStorage.token)
       }
     }).then((res)=>{
       if(res.data.code==200){
         this.userInfo=res.data.data;
-        this.detail();
+        this.userType = this.userInfo.USER_TYPE
+        this.detail(this.userType);
       }else{
         this.$indicator.close();
         this.$router.push({path:"/Login"})
@@ -102,55 +101,18 @@ export default {
   mounted(){
   },
   methods:{
-    detail(){
+    detail(userType){
       this.$axios({
         method:'post',
-        url:'/dsjk/api/module/list.do',
+        url:'/FHADMINM/api/userModule/getmodule.do',
         data:{
-          type:1,
-          userType:1,
-          groupType:1
+          M_USER_TYPE:userType
         }
-      }).then((res)=>{
+      }).then((res) => {
         if(res.data.code==200){
-          this.myOne=res.data.data;
+          this.isLoad = true
+          this.group = res.data.data;
         }
-      })
-      this.$axios({
-        method:'post',
-        url:'/dsjk/api/module/list.do',
-        data:{
-          type:1,
-          userType:1,
-          groupType:2
-        }
-      }).then((res)=>{
-        this.isLoad=true;
-        if(res.data.code==200){
-          this.myTwo=res.data.data;
-        }
-      })
-      this.$axios({
-        method:'post',
-        url:'/dsjk/api/module/list.do',
-        data:{
-          type:1,
-          userType:1,
-          groupType:3
-        }
-      }).then((res)=>{
-        this.myThree=res.data.data;
-      })
-      this.$axios({
-        method:'post',
-        url:'/dsjk/api/module/list.do',
-        data:{
-          type:1,
-          userType:1,
-          groupType:4
-        }
-      }).then((res)=>{
-        this.myFour=res.data.data;
       })
     }
   }
@@ -219,8 +181,8 @@ export default {
   justify-content: center;
 }
 .my-one li img{
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   margin-right: 10px;
 }
 .my-two{

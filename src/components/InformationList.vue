@@ -4,10 +4,10 @@
     <transition name='fade'>
       <ul class="InformationWrap" v-show="isLoad">
         <li v-for="item in list">
-          <router-link :to="{path:'/InformationDetail',query:{id:item.id}}">
-            <p class="line-one title">{{item.title}}</p>
-            <p class="line-two subTitle">{{item.content}}</p>
-            <span class="time">{{item.createTime}}</span>
+          <router-link :to="{path:'/InformationDetail',query:{id:item.INFORMATION_ID}}">
+            <p class="line-one title">{{item.TITLE}}</p>
+            <p class="line-two subTitle">{{item.CONTENT}}</p>
+            <span class="time">{{item.CREATE_TIME}}</span>
           </router-link>
         </li>
       </ul>
@@ -58,9 +58,9 @@ export default {
       this.flag=false;
       this.$axios({
         method:"post",
-        url:"/dsjk/api/dsInformation/list.do",
+        url:"/FHADMINM/api/dsInformation/getInformationList",
         data:{
-          index:this.page
+          pageIndex:this.page
         }
       }).then((res)=>{
         if(!res.data.data){

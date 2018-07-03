@@ -48,7 +48,7 @@ export default {
   color: #555;
 }
 .appMargin{
-  margin-bottom: 46px;
+  margin-bottom: 50px;
 }
 ul{
   padding:0;
