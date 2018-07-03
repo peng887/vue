@@ -115,5 +115,7 @@ span{
 .positionRel{
   position: relative;
 }
-
+.router-link-active{
+  color: #26a2ff;
+}
 </style>

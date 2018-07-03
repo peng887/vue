@@ -4,11 +4,12 @@
 
     <div class="top-bar">
       <ul>
-        <li>推荐</li>
-        <li>关注</li>
+        <li><router-link to="CommunityRecommend">推荐</router-link></li>
+        <li><router-link to="CommunityFocus">关注</router-link></li>
         <li v-for="(item,index) in topBarList">{{item.TRIBUNE_TITLE}}</li>
       </ul>
     </div>
+    <router-view name="children"></router-view>
   </div>
 </template>
 

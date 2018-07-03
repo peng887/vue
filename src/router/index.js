@@ -15,6 +15,8 @@ import InformationList from '@/components/InformationList'
 import InformationDetail from '@/components/InformationDetail'
 import FamousDoctor from '@/components/FamousDoctor'
 import Consultation from '@/components/Consultation'
+import CommunityRecommend from '@/components/CommunityRecommend'
+import CommunityFocus from '@/components/CommunityFocus'
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +42,26 @@ export default new Router({
         default:Community,
         bar:TabBar
       },
+      children:[
+        {
+          path: '/Community',
+          redirect: "/Community/CommunityRecommend"
+        },
+        {
+          path:'/Community/CommunityRecommend',
+          component:CommunityRecommend,
+          meta:{
+            keepAlive: true
+          }
+        },
+        {
+          path:'/Community/CommunityFocus',
+          component:CommunityFocus,
+          meta:{
+            keepAlive: true
+          }
+        }
+      ],
       meta:{
         keepAlive: true
       }

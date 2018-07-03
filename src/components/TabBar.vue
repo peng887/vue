@@ -2,13 +2,13 @@
   <div class="tabBarWrap">
     <ul class="tabBar">
       <li>
-        <router-link to="Index">
+        <router-link to="/Index">
           <i class="fa fa-home" aria-hidden="true"></i>
           <span>首页</span>
         </router-link>
       </li>
       <li>
-        <router-link to="Community">
+        <router-link to="/Community">
           <i class="fa fa-comments-o" aria-hidden="true"></i>
           <span>社区</span>
         </router-link>
@@ -20,13 +20,13 @@
         </router-link>
       </li>
       <li>
-        <router-link to="Store">
+        <router-link to="/Store">
           <i class="fa fa-shopping-bag" aria-hidden="true"></i>
           <span>商城</span>
         </router-link>
       </li>
       <li>
-        <router-link to="My">
+        <router-link to="/My">
           <i class="fa fa-user-circle" aria-hidden="true"></i>
           <span>我的</span>
         </router-link>
@@ -90,7 +90,5 @@ export default {
   margin-left: -24px;
   color: #555;
 }
-.router-link-active{
-  color: #26a2ff;
-}
+
 </style>
