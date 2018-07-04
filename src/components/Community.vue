@@ -4,7 +4,7 @@
 
     <div class="top-bar">
       <ul>
-        <li><router-link to="CommunityRecommend">推荐</router-link></li>
+        <li><router-link to="CommunityRecommend" id="1" @click.native="asd">推荐</router-link></li>
         <li><router-link to="CommunityFocus">关注</router-link></li>
         <li v-for="(item,index) in topBarList">{{item.TRIBUNE_TITLE}}</li>
       </ul>
@@ -36,6 +36,14 @@ export default {
     }).then(res=>{
       this.topBarList=res.data.data
     })
+  },
+  mounted(){
+    console.info(this)
+  },
+  methods:{
+    asd(e){
+      console.info(e)
+    }
   }
 }
 </script>
