@@ -9,7 +9,7 @@
         <li v-for="(item,index) in topBarList">{{item.TRIBUNE_TITLE}}</li>
       </ul>
     </div>
-    <router-view name="children"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -38,7 +38,6 @@ export default {
     })
   },
   mounted(){
-    console.info(this)
   },
   methods:{
     asd(e){
